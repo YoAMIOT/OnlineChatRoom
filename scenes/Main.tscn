@@ -1,5 +1,194 @@
-[gd_scene format=2]
+[gd_scene load_steps=12 format=2]
 
-[node name="Control" type="Control"]
+[ext_resource path="res://ressources/Font/TiwipiFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scripts/UI/Main.gd" type="Script" id=2]
+[ext_resource path="res://ressources/Animations/loading/loading5.png" type="Texture" id=3]
+[ext_resource path="res://ressources/Animations/loading/loading4.png" type="Texture" id=4]
+[ext_resource path="res://ressources/Animations/loading/loading3.png" type="Texture" id=5]
+[ext_resource path="res://ressources/Animations/loading/loading6.png" type="Texture" id=6]
+[ext_resource path="res://ressources/Animations/loading/loading8.png" type="Texture" id=7]
+[ext_resource path="res://ressources/Animations/loading/loading7.png" type="Texture" id=8]
+[ext_resource path="res://ressources/Animations/loading/loading2.png" type="Texture" id=9]
+[ext_resource path="res://ressources/Animations/loading/loading1.png" type="Texture" id=10]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 10 ), ExtResource( 9 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 8 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="Menu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenu" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="Polygon2D" parent="MainMenu"]
+scale = Vector2( 1, 0.990099 )
+color = Color( 0.145098, 0.811765, 0.733333, 0.584314 )
+polygon = PoolVector2Array( 256, 0, 256, 808, 0, 808, 0, 0 )
+
+[node name="Host" type="Button" parent="MainMenu"]
+margin_left = 8.0
+margin_top = 288.0
+margin_right = 248.0
+margin_bottom = 330.0
+custom_fonts/font = ExtResource( 1 )
+text = "Host"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Join" type="Button" parent="MainMenu"]
+margin_left = 8.0
+margin_top = 376.0
+margin_right = 248.0
+margin_bottom = 418.0
+custom_fonts/font = ExtResource( 1 )
+text = "Join"
+
+[node name="Quit" type="Button" parent="MainMenu"]
+margin_left = 8.0
+margin_top = 472.0
+margin_right = 248.0
+margin_bottom = 514.0
+custom_fonts/font = ExtResource( 1 )
+text = "Quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="JoinMenu" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="Polygon2D" parent="JoinMenu"]
+position = Vector2( 96, 96 )
+scale = Vector2( 2.375, 0.752475 )
+color = Color( 0.145098, 0.811765, 0.733333, 0.584314 )
+polygon = PoolVector2Array( 256, 0, 256, 808, 0, 808, 0, 0 )
+
+[node name="Back" type="Button" parent="JoinMenu"]
+margin_left = 128.0
+margin_top = 608.0
+margin_right = 272.0
+margin_bottom = 672.0
+custom_fonts/font = ExtResource( 1 )
+text = "<= Back"
+
+[node name="JoinChat" type="Button" parent="JoinMenu"]
+margin_left = 528.0
+margin_top = 608.0
+margin_right = 671.0
+margin_bottom = 672.0
+custom_fonts/font = ExtResource( 1 )
+text = "Join Chat"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IpAddress" type="LineEdit" parent="JoinMenu"]
+margin_left = 160.0
+margin_top = 329.0
+margin_right = 640.0
+margin_bottom = 375.0
+custom_fonts/font = ExtResource( 1 )
+text = "127.0.0.1"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Error" type="Control" parent="JoinMenu"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="Polygon2D" parent="JoinMenu/Error"]
+color = Color( 0.815686, 0.188235, 0.188235, 1 )
+polygon = PoolVector2Array( 192, 128, 608, 128, 608, 296, 192, 296 )
+
+[node name="ErrorLabel" type="Label" parent="JoinMenu/Error"]
+margin_left = 192.0
+margin_top = 128.0
+margin_right = 608.0
+margin_bottom = 296.0
+custom_fonts/font = ExtResource( 1 )
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Connecting" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="Polygon2D" parent="Connecting"]
+position = Vector2( 96, 96 )
+scale = Vector2( 2.375, 0.752475 )
+color = Color( 0.145098, 0.811765, 0.733333, 0.584314 )
+polygon = PoolVector2Array( 256, 0, 256, 808, 0, 808, 0, 0 )
+
+[node name="LoadingIcon" type="AnimatedSprite" parent="Connecting"]
+position = Vector2( 401, 448 )
+scale = Vector2( 50, 50 )
+frames = SubResource( 1 )
+frame = 6
+playing = true
+
+[node name="ConnectingLabel" type="Label" parent="Connecting"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -82.5
+margin_top = -123.0
+margin_right = 82.5
+margin_bottom = -87.0
+custom_fonts/font = ExtResource( 1 )
+text = "Connecting..."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ConnectedLabel" type="Label" parent="Connecting"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -143.0
+margin_top = -73.0
+margin_bottom = -37.0
+rect_scale = Vector2( 2, 2 )
+custom_fonts/font = ExtResource( 1 )
+text = "Connected"
+
+[connection signal="pressed" from="MainMenu/Host" to="." method="_on_Host_pressed"]
+[connection signal="pressed" from="MainMenu/Join" to="." method="_on_Join_pressed"]
+[connection signal="pressed" from="MainMenu/Quit" to="." method="_on_Quit_pressed"]
+[connection signal="pressed" from="JoinMenu/Back" to="." method="_on_Back_pressed"]
+[connection signal="pressed" from="JoinMenu/JoinChat" to="." method="_on_JoinChat_pressed"]
