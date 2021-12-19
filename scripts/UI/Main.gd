@@ -3,19 +3,20 @@ extends Control
 ###Variables###
 var regex : RegEx = RegEx.new();
 var emptyIpError : String = "No IP enterred";
-var invalidIpError : String = "Invalid IP address"
+var invalidIpError : String = "Invalid IP address";
 
 ###Ready Function###
 func _ready():
 # warning-ignore:return_value_discarded
 	regex.compile("\\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b");
 	#The RegEx is: \b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b
-
+	OS.set_window_fullscreen(false);
 
 
 ###When host button is pressed###
 func _on_Host_pressed():
-	pass # Replace with function body.
+	Network.createServer();
+	Network.userList[str(get_tree().get_network_unique_id())] = Network.username;
 
 ###When Join button is pressed###
 func _on_Join_pressed():
@@ -44,6 +45,7 @@ func _on_JoinChat_pressed():
 		if result:
 			get_node("JoinMenu").visible = false;
 			get_node("Connecting").visible = true;
+			Network.joinServer(get_node("JoinMenu/IpAddress").text);
 		#If the address is not valid
 		else:
 			get_node("JoinMenu/Error").visible = true;
@@ -52,3 +54,37 @@ func _on_JoinChat_pressed():
 	elif get_node("JoinMenu/IpAddress").text.empty() == true:
 		get_node("JoinMenu/Error").visible = true;
 		get_node("JoinMenu/Error/ErrorLabel").text = emptyIpError;
+
+
+
+###Function called when the connection failed###
+func connectionFailed():
+	get_node("Connecting/LoadingIcon").visible = false;
+	get_node("Connecting/ConnectingLabel").visible = false;
+	get_node("Connecting/FailLabel").visible = true;
+	yield(get_tree().create_timer(3), "timeout");
+	Network.resetNetworkPeer();
+	get_node("Connecting/FailLabel").visible = false;
+	get_node("Connecting/LoadingIcon").visible = true;
+	get_node("Connecting/ConnectingLabel").visible = true;
+	get_node("Connecting").visible = false;
+	get_node("JoinMenu").visible = true;
+
+###Function called when the connection failed###
+func connectionSuccess():
+	get_node("Connecting/LoadingIcon").visible = false;
+	get_node("Connecting/ConnectingLabel").visible = false;
+	get_node("Connecting/ConnectedLabel").visible = true;
+	yield(get_tree().create_timer(3), "timeout");
+	get_tree().change_scene("res://scenes/ChatRoom.tscn");
+
+
+###Function when the tag is updated###
+func _on_Tag_text_changed(newUsername):
+	if get_node("MainMenu/Tag").text.empty() == false:
+		get_node("MainMenu/Host").disabled = false;
+		get_node("MainMenu/Join").disabled = false;
+		Network.setUsername(newUsername);
+	if get_node("MainMenu/Tag").text.empty() == true:
+		get_node("MainMenu/Host").disabled = true;
+		get_node("MainMenu/Join").disabled = true;

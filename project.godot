@@ -14,12 +14,20 @@ config/name="OnlineChatRoom"
 run/main_scene="res://scenes/Main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Network="*res://scripts/singleton/Network.gd"
+
 [display]
 
 window/size/width=800
 window/size/height=800
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
+
+[network]
+
+limits/tcp/connect_timeout_seconds=15
 
 [physics]
 

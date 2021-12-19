@@ -28,7 +28,6 @@ __meta__ = {
 }
 
 [node name="MainMenu" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -40,12 +39,25 @@ scale = Vector2( 1, 0.990099 )
 color = Color( 0.145098, 0.811765, 0.733333, 0.584314 )
 polygon = PoolVector2Array( 256, 0, 256, 808, 0, 808, 0, 0 )
 
+[node name="Tag" type="LineEdit" parent="MainMenu"]
+margin_left = 320.0
+margin_top = 376.0
+margin_right = 736.0
+margin_bottom = 422.0
+custom_fonts/font = ExtResource( 1 )
+align = 1
+placeholder_text = "Username"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Host" type="Button" parent="MainMenu"]
 margin_left = 8.0
 margin_top = 288.0
 margin_right = 248.0
 margin_bottom = 330.0
 custom_fonts/font = ExtResource( 1 )
+disabled = true
 text = "Host"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -57,6 +69,7 @@ margin_top = 376.0
 margin_right = 248.0
 margin_bottom = 418.0
 custom_fonts/font = ExtResource( 1 )
+disabled = true
 text = "Join"
 
 [node name="Quit" type="Button" parent="MainMenu"]
@@ -140,6 +153,7 @@ __meta__ = {
 }
 
 [node name="Connecting" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -156,7 +170,7 @@ polygon = PoolVector2Array( 256, 0, 256, 808, 0, 808, 0, 0 )
 position = Vector2( 401, 448 )
 scale = Vector2( 50, 50 )
 frames = SubResource( 1 )
-frame = 6
+frame = 4
 playing = true
 
 [node name="ConnectingLabel" type="Label" parent="Connecting"]
@@ -186,7 +200,26 @@ margin_bottom = -37.0
 rect_scale = Vector2( 2, 2 )
 custom_fonts/font = ExtResource( 1 )
 text = "Connected"
+align = 1
+valign = 1
 
+[node name="FailLabel" type="Label" parent="Connecting"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -148.0
+margin_top = -72.0
+margin_bottom = 3.0
+rect_scale = Vector2( 2, 2 )
+custom_fonts/font = ExtResource( 1 )
+text = "Connection
+Failed..."
+align = 1
+valign = 1
+
+[connection signal="text_changed" from="MainMenu/Tag" to="." method="_on_Tag_text_changed"]
 [connection signal="pressed" from="MainMenu/Host" to="." method="_on_Host_pressed"]
 [connection signal="pressed" from="MainMenu/Join" to="." method="_on_Join_pressed"]
 [connection signal="pressed" from="MainMenu/Quit" to="." method="_on_Quit_pressed"]
