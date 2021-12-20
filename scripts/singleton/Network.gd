@@ -38,6 +38,7 @@ func resetNetworkPeer():
 		get_tree().disconnect("connection_failed", self, "connectionFailed");
 		get_tree().disconnect("connected_to_server", self, "connectionSucceeded");
 		get_tree().network_peer = null;
+		userList.clear();
 
 
 
