@@ -170,7 +170,7 @@ polygon = PoolVector2Array( 256, 0, 256, 808, 0, 808, 0, 0 )
 position = Vector2( 401, 448 )
 scale = Vector2( 50, 50 )
 frames = SubResource( 1 )
-frame = 1
+frame = 5
 playing = true
 
 [node name="ConnectingLabel" type="Label" parent="Connecting"]
